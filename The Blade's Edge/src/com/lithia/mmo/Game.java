@@ -3,6 +3,10 @@ package com.lithia.mmo;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.util.glu.GLU.*;
 
+import java.nio.BufferUnderflowException;
+import java.nio.FloatBuffer;
+
+import org.lwjgl.BufferUtils;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -32,13 +36,21 @@ public class Game
 	
 	private void init()
 	{
+		glClearColor(0.7f, 0.8f, 0.9f, 1.0f);
+		
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_TEXTURE_2D);
 		
 		glEnable(GL_FOG);
 		
-		glFogf(GL_FOG_DENSITY, 0.1f);
-		glFogi(GL_FOG_START, 128);
+		FloatBuffer fb = BufferUtils.createFloatBuffer(4);
+		
+		fb.put(new float[] { 0.7f, 0.8f, 0.9f, 1.0f });
+		fb.flip();
+		
+		glFog(GL_FOG_COLOR, fb);
+		glFogf(GL_FOG_DENSITY, 0.01f);
+		glFogi(GL_FOG_START, 512);
 		glFogi(GL_FOG_END, 1024);
 		
 		glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
@@ -74,6 +86,7 @@ public class Game
 	private void update()
 	{
 		_player.update();
+		_world.updateWorld();
 	}
 	
 	private void render()

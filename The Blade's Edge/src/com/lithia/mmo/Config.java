@@ -16,5 +16,5 @@ public class Config
 	
 	public static final Vector3f SPAWN_LOCATION = new Vector3f(0.0f, 12.0f, 0.0f);
 
-	public static final float JUMP_VELOCITY = 0.5f;
+	public static final float JUMP_VELOCITY = 0.2f;
 }

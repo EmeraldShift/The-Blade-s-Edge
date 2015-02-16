@@ -11,6 +11,9 @@ local.properties
 .settings/
 .loadpath
 
+/lib/
+/lib/native/
+
 # Eclipse Core
 .project
 
